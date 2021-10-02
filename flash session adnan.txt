@@ -1,0 +1,37 @@
+$this->session->set_userdata('notice', 'Data berhasil diperbarui !');
+
+================================
+
+$cek = $this->session->userdata('notice');
+if ($cek) {
+	echo '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' . $cek . '</div>';
+	$this->session->unset_userdata('notice');
+}
+
+================================== sweetalert2
+<!-- sweetalert -->
+<link href="<?= base_url('assets/sweetalert/') ?>sweetalert2.min.css" rel="stylesheet">
+<style>
+	.swal2-popup {
+		font-size: 2rem;
+	}
+</style>
+<!-- sweetalert -->
+<script src="<?= base_url('assets/sweetalert/') ?>sweetalert2.min.js"></script>
+
+// notice
+var notice = "<?= $this->session->userdata('notice'); ?>";
+if (notice) {
+   Swal.fire({
+       'title': 'Sukses !',
+       'text': notice,
+       'type': 'success'
+   });
+}
+<?php
+$cek = $this->session->userdata('notice');
+if ($cek) {
+   $this->session->unset_userdata('notice');
+}
+?>
+==================================================

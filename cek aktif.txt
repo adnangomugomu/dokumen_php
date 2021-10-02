@@ -1,0 +1,21 @@
+// ========================== cek aktif
+
+error_reporting(E_ALL ^ E_NOTICE);
+function cekAktif($a)
+{
+	if (isset($a)) {
+		return $a;
+	} else {
+		return null;
+	}
+}
+
+function cekAktif8($a,$b,$c,$d,$e,$f,$g,$h)
+{
+    if ( isset($a) || isset($b) || isset($c) || isset($d) || isset($e) || isset($f) || isset($g) || isset($h)) {
+        return "active menu-open ";
+    } else {
+        return null;
+    }
+}
+

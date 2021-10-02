@@ -1,0 +1,88 @@
+//! note
+database config harus set $[debug] = false
+
+// ======================================
+$run = $this->db->update('pesan', $data);     
+if ($run) {
+  $this->session->set_flashdata('notice', 'sukses');
+  redirect('xxxxx');
+}else{
+  // var_dump($this->db->error());die;
+  $this->session->set_flashdata('notice_danger', 'gagal');            
+  redirect('xxxxx');
+}
+
+// ================================== validasi form error
+<?php if (validation_errors()) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-4">
+                <?= validation_errors('<p class="text-danger">', '</p>') ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+//==================================
+
+
+$this->load->library('form_validation');
+$rule = array(
+	'required' => '%s tidak boleh kosong',
+	'is_unique' => '%s sudah ada',
+	'min_length' => '%s minimal 5 karakter',
+	'max_length' => '%s maksimal 250 karakter',
+	'in_list' => '%s tidak sesuai',
+	'is_natural' => '%s wajib angka',
+	'matches' => '%s tidak sesuai',
+);
+
+$config = array(
+  array(
+      'field' => 'xxxx',
+      'label' => 'xxxx',
+      'rules' => 'required|trim|max_length[250]',
+      'errors' => $rule
+  ),
+);
+
+if (!$_FILES['foto']['name']) {
+  array_push($config, array(
+      'field' => 'foto',
+      'label' => 'foto',
+      'rules' => 'required|trim|max_length[200]',
+      'errors' => $rule
+  ));
+}
+
+$password = htmlspecialchars($this->input->post('password', true));
+if ($password) {
+  array_push($config, array(
+      'field' => 'password',
+      'label' => 'Password',
+      'rules' => 'required|trim|max_length[200]',
+      'errors' => $rule
+  ));
+  array_push($config, array(
+      'field' => 'password2',
+      'label' => 'Password',
+      'rules' => 'required|trim|max_length[200]|matches[password]',
+      'errors' => $rule
+  ));
+}
+
+$this->form_validation->set_rules($config);
+if ($this->form_validation->run() == FALSE) {
+
+  //view
+} else {
+
+  $submit = htmlspecialchars($this->input->post('submit', true));
+  if ($submit) {
+      $this->xx->xx();
+  }
+}
+
+
+
+
+///===========

@@ -1,0 +1,67 @@
+// ! jika 1 gambar saja
+$config['upload_path'] = 'assets/xxxxx';
+$config['allowed_types'] = 'jpg|png|jpeg';
+$config['max_size'] = 0; // 0 = no limit || default max 2048 kb
+$config['overwrite'] = false;
+$config['remove_space'] = true;
+$config['encrypt_name'] = true;
+$this->load->library('upload', $config);
+$this->upload->initialize($config);
+$run = $this->upload->do_upload('xxxxx'); // name inputnya
+
+if (!$run) {
+   echo json_encode([
+      'status' => 'failed',
+      'msg' => $this->upload->display_errors()
+     ]);
+     die;          
+}
+
+$zdata = ['upload_data' => $this->upload->data()]; // get data
+$zfile = $zdata['upload_data']['full_path']; // get file path
+chmod($zfile, 0777); // linux wajib
+$gambar = $zdata['upload_data']['file_name']; // nama file
+$this->db->set('xxxxx', $gambar);
+// ! =========================== batas
+
+===================== cekkkk if untuk update
+if ($_FILES['thumbnail']['name']) {
+
+}
+
+===================== multiple insert
+$id_data = $this->db->insert_id();
+
+$config['upload_path']          = './uploads/gambar';
+$config['allowed_types']        = 'jpeg|jpg|png';
+$config['max_size']             = 0;
+$config['overwrite']             = false;
+$config['remove_space']         = true;
+$config['encrypt_name']            = true;
+$this->load->library('upload', $config);
+$jumlah_gambar = count($_FILES['gambar']['name']);
+for ($i = 0; $i < $jumlah_gambar; $i++) {
+    if (!empty($_FILES['gambar']['name'][$i])) {
+
+        $_FILES['file']['name'] = $_FILES['gambar']['name'][$i];
+        $_FILES['file']['type'] = $_FILES['gambar']['type'][$i];
+        $_FILES['file']['tmp_name'] = $_FILES['gambar']['tmp_name'][$i];
+        $_FILES['file']['error'] = $_FILES['gambar']['error'][$i];
+        $_FILES['file']['size'] = $_FILES['gambar']['size'][$i];
+
+        if ($this->upload->do_upload('file')) {
+            $uploadData = $this->upload->data();
+            $name = $uploadData['file_name'];
+
+            $this->db->set('id_data', $id_data);
+            $this->db->set('gambar', $name);
+            $this->db->insert('to_table');
+        }
+    }
+}
+
+
+
+
+
+

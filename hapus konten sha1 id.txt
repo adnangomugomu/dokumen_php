@@ -1,0 +1,25 @@
+// ========================= hapus data
+
+public function hapusData()
+    {
+        $id = $this->input->get('id', true);
+        if (!$id) {
+            redirect('xxxx/xxxxx');
+        }
+
+        $cekk = $this->db->get_where('xxxxx', ['sha1(id)' => $id])->row_array();
+        if (!$cekk) {
+            $this->session->set_flashdata('notice_danger', 'Data tidak ditemukan');
+            redirect('xxxx/xxxxx');
+        }
+        $this->db->where('sha1(id)', $id);
+        $run = $this->db->delete('xxxxx');
+        if ($run) {
+            $this->session->set_flashdata('notice', 'Data berhasil dihapus !');
+        } else {
+            $this->session->set_flashdata('notice_danger', 'Data gagal dihapus');
+        }
+        redirect('xxxx/xxxxx');
+    }
+
+// ======================= batas

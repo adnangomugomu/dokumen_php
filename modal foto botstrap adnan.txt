@@ -1,0 +1,25 @@
+style="cursor: zoom-in;"
+class="foto"
+
+<!-- modal-->
+<div class="modal fade" id="modal-foto" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+				<img width="100%" class="img img-fluid" src="#" id="modal-foto-nya">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+// modal foto
+$('.foto').on('click', function() {
+	var foto = $(this).attr('src');
+	$('#modal-foto-nya').attr('src', foto);
+	$('#modal-foto').modal('show');
+});

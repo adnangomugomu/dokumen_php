@@ -1,0 +1,21 @@
+function potong($string,$panjang)
+{
+	$r = substr($string,0,strpos($string, ' ', $panjang));
+	return $r.'...';
+}
+
+// ======================== algoritma adnan
+
+function potong($string,$panjang)
+{
+	$r = substr($string,0,$panjang);
+	$r = explode(' ',$r);
+	$p = count($r);   
+	$xx = implode(" ",$r);
+	if (strlen($xx) < $panjang) {
+	   return $xx;
+	}
+	$z = array_slice($r,0,$p - 1);
+	$z = implode(" ",$z);
+	return $z . '...';
+}

@@ -1,0 +1,6 @@
+============================================= taruh bawah body
+<!-- fb komen -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
+============================================= taruh lokasi komentar
+<div class="fb-comments" data-href="<?= base_url('produk/lihat?id=') . sha1($data['id']) ?>" data-numposts="8" data-width="350px"></div>

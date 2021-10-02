@@ -1,0 +1,6 @@
+/* lebar kurang dari 768 (ukuran mobile) */
+@media only screen and (max-device-width: 768px) {
+	#table-data {
+		width: 500px;
+	}
+}
