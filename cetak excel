@@ -1,0 +1,254 @@
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
+function cetak_excel($tahun = null)
+	{
+		$jenis_elemen = 'SPM';
+
+		if (!$tahun) {
+			echo 'not allowed';
+			die;
+		}
+
+		$data = $this->query_cetak($tahun, $jenis_elemen);
+
+		$spreadsheet = new Spreadsheet();
+		$spreadsheet->getActiveSheet()->setTitle('Meta Data SPM`');
+		$spreadsheet->getProperties()->setCreator('SOLODATA')
+			->setLastModifiedBy('SOLODATA')
+			->setTitle('Office 2007 XLSX Test Document')
+			->setSubject('Office 2007 XLSX Test Document')
+			->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+			->setKeywords('office 2007 openxml php');
+
+		$spreadsheet
+			->getActiveSheet()
+			->getStyle('A5:I5')
+			->getFill()
+			->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+			->getStartColor()
+			->setARGB('FFFA65');
+
+		$spreadsheet->getActiveSheet(0)->setCellValue('A2', 'meta data ' . $jenis_elemen . ' Tahun ' . $tahun);
+
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('A5', 'NO')->getStyle('A5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('B5', 'BIDANG')->getStyle('B5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('C5', 'CAPAIAN INDIKATOR')->getStyle('C5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('D5', 'ELEMEN DATA')->getStyle('D5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('E5', 'JENIS ISIAN ELEMEN DATA')->getStyle('E5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('F5', 'FORMAT ISIAN ELEMEN DATA')->getStyle('F5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('G5', 'NILAI ELEMEN DATA')->getStyle('G5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('H5', 'NILAI CAPAIAN INDIKATOR')->getStyle('H5')->getFont()->setBold(true);
+		$spreadsheet->setActiveSheetIndex(0)->setCellValue('I5', 'OPD')->getStyle('I5')->getFont()->setBold(true);
+
+		$spreadsheet->getActiveSheet(0)->getStyle('A5:I5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+		$spreadsheet->getActiveSheet(0)->getStyle('A5:I5')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+		$spreadsheet->getActiveSheet(0)->getRowDimension('5')->setRowHeight(35);
+
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('A')->setWidth(10);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('B')->setWidth(25);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('C')->setWidth(60);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('D')->setWidth(50);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('E')->setWidth(20);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('F')->setWidth(15);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('G')->setWidth(15);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('H')->setWidth(15);
+		$spreadsheet->getActiveSheet(0)->getColumnDimension('I')->setWidth(30);
+
+		$kolom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+
+		for ($i = 0; $i < count($kolom); $i++) {
+			$row = $kolom[$i] . 5;
+
+			$spreadsheet
+				->getActiveSheet()
+				->getStyle($row)
+				->getBorders()
+				->getOutline()
+				->setBorderStyle(Border::BORDER_THIN)
+				->setColor(new Color('000000'));
+		}
+
+		$no = 1;
+		$awal = 6;
+
+		foreach ($data as $field) {
+
+			$total = count($field[3]);
+
+			$spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $awal, $no);
+			$spreadsheet->setActiveSheetIndex(0)->setCellValue('B' . $awal, $field[1]);
+			$spreadsheet->setActiveSheetIndex(0)->setCellValue('C' . $awal, $field[2]);
+
+			for ($i = 0; $i < $total; $i++) {
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('D' . ($awal + $i), $field[3][$i]);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . ($awal + $i), $field[4][$i]);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('F' . ($awal + $i), $field[5][$i]);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('G' . ($awal + $i), $field[6][$i]);
+				$spreadsheet->setActiveSheetIndex(0)->setCellValue('I' . ($awal + $i), $field[8][$i]);
+
+
+				for ($ii = 0; $ii < count($kolom); $ii++) {
+					$row = $kolom[$ii] . ($awal + $i);
+
+					$spreadsheet
+						->getActiveSheet()
+						->getStyle($row)
+						->getBorders()
+						->getOutline()
+						->setBorderStyle(Border::BORDER_THIN)
+						->setColor(new Color('000000'));
+				}
+			}
+
+			if ($total != 0) {
+				$total = $total - 1;
+			}
+
+			$spreadsheet->getActiveSheet()->mergeCells('A' . $awal . ':A' . ($awal + $total));
+			$spreadsheet->getActiveSheet()->mergeCells('B' . $awal . ':B' . ($awal + $total));
+			$spreadsheet->getActiveSheet()->mergeCells('C' . $awal . ':C' . ($awal + $total));
+			$spreadsheet->getActiveSheet()->mergeCells('H' . $awal . ':H' . ($awal + $total));
+
+			$spreadsheet->setActiveSheetIndex(0)->setCellValue('H' . $awal, $field[7]);
+
+			for ($i = 0; $i < count($kolom); $i++) {
+				$row = $kolom[$i] . $awal;
+
+				$spreadsheet
+					->getActiveSheet()
+					->getStyle($row)
+					->getBorders()
+					->getOutline()
+					->setBorderStyle(Border::BORDER_THIN)
+					->setColor(new Color('000000'));
+			}
+
+			$awal += ($total + 1);
+			$no++;
+		}
+
+		$spreadsheet->getActiveSheet(0)->getStyle('A5:I' . $awal)->getAlignment()->setWrapText(true);
+		$spreadsheet->getActiveSheet(0)->getStyle('A5:I' . $awal)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+		$spreadsheet->getActiveSheet(0)->getStyle('A5:A' . $awal)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+		$spreadsheet->getActiveSheet(0)->getStyle('E5:E' . $awal)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+		$spreadsheet->getActiveSheet(0)->getStyle('F5:F' . $awal)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+		$spreadsheet->getActiveSheet(0)->getStyle('H6:H' . $awal)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+		// Redirect output to a client’s web browser (Xlsx)
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="meta_data_' . $jenis_elemen . date('dMY') . '.xlsx"');
+		header('Cache-Control: max-age=0');
+		// If you're serving to IE 9, then the following may be needed
+		header('Cache-Control: max-age=1');
+
+		// If you're serving to IE over SSL, then the following may be needed
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+		header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+		header('Pragma: public'); // HTTP/1.0
+
+		$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+		$writer->save('php://output');
+	}
+
+	private function query_cetak($tahun, $jenis_elemen)
+	{
+		$data = [];
+		$this->db->select('a.*, d.nm_urusan, e.nm_bidang');
+		$this->db->from('all_indikator_data a');
+		$this->db->join('ref_urusan d', 'a.id_urusan = d.kd_urusan', 'left');
+		$this->db->join('ref_bidang e', 'a.id_bidang = e.id_bidang', 'left');
+		$this->db->where([
+			'a.is_active' => '1',
+			'a.deleted_at' => null,
+			'a.deleted_by' => null,
+			'a.jenis_data' => $jenis_elemen,
+		]);
+
+		if ($tahun != null && $tahun != "") {
+			$this->db->where('tahun', $tahun);
+		}
+
+		$list = $this->db->get()->result();
+		$no = 0;
+		foreach ($list as $field) {
+
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $field->nm_bidang;
+			$row[] = $field->indikator;
+
+			$get = $this->tabel->get_elemen($field->id, $tahun);
+			$total = count($get);
+
+			$text = '';
+			$jenis_isian = '';
+			$format_isian = '';
+			$nilai = '';
+
+			$i = 1;
+			foreach ($get as $key => $rows) {
+
+				$text .= '(' . $rows['kode_rumus'] . ') ' . $rows['rumus'];
+				$jenis_isian .= $rows['jenis_isian'];
+				$format_isian .= $rows['format_isian'];
+				$nilai .=  $rows['nilai'];
+
+				if ($i < $total) {
+					$text .=  '[]';
+					$jenis_isian .=  '[]';
+					$format_isian .=  '[]';
+					$nilai .=  '[]';
+				}
+
+				$i++;
+			}
+
+			$get_opd  = array_unique(array_column($get, 'nm_unit'));
+			$text_opd = '';
+
+			$ii = 1;
+			foreach ($get_opd as $key => $rows) {
+				$text_opd .= $rows;
+
+				if ($ii < $total) {
+					$text_opd .=  '[]';
+				}
+
+				$ii++;
+			}
+
+			$row[] = explode('[]', $text);
+			$row[] = explode('[]', $jenis_isian);
+			$row[] =  explode('[]', $format_isian);
+			$row[] =  explode('[]', $nilai);
+
+			$nilai_akhir = '';
+			if ($field->rumus == '1') {
+				if ($get[0]['nilai'] != null && $get[1]['nilai'] != null) {
+					$proses = ($get[0]['nilai'] / $get[1]['nilai']) * $field->pengali;
+					$nilai_akhir = number_format($proses, 2);
+				} else {
+					$nilai_akhir = '-';
+				}
+			} else {
+				if ($get[0]['nilai'] == null) {
+					$nilai_akhir = '-';
+				} else {
+					$nilai_akhir = $get[0]['nilai'];
+				}
+			}
+
+			$row[] = $nilai_akhir;
+			$row[] = explode('[]', $text_opd);
+			$data[] = $row;
+		}
+
+		return $data;
+	}
