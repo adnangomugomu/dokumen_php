@@ -81,8 +81,5 @@ if ($this->form_validation->run() == FALSE) {
       $this->xx->xx();
   }
 }
-
-
-
  
 ///=============
