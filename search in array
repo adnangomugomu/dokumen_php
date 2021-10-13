@@ -1,0 +1,18 @@
+function likeMatch(q) {
+	var array = [];
+
+	if (q != null) {
+		q = q.toLowerCase();
+	}
+
+	for (let i = 0; i < tampung_data.length; i++) {
+		var nama_jalan = tampung_data[i]['Nama_Jalan'];
+		if (nama_jalan != null) {
+			var cek_index = (nama_jalan.toLowerCase()).match(q);
+			if (cek_index != null) {
+				array.push(tampung_data[i]);
+			}
+		}
+	}
+	return array;
+}
