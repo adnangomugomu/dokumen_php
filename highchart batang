@@ -1,0 +1,60 @@
+// data berupa array
+
+  function grafik_bulat(container, data, nama) {
+
+        Highcharts.chart(container, {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'column',
+            },
+            title: {
+                text: '',
+                align: 'left',
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: `
+                    <tr>
+                        <td style="padding:0;">
+                            Prosentase : 
+                        </td>
+                        <td style="padding:0">
+                            <b>{point.y} %</b>
+                        </td>
+                    </tr>`,
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            accessibility: {
+                point: {
+                    valueDecimals: '%'
+                }
+            },
+            xAxis: {
+                categories: nama,
+            },
+            yAxis: {
+                title: {
+                    text: 'Prosentase'
+                }
+            },
+            plotOptions: {
+                column: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b><br>{point.y} %',
+                        distance: -50,                     
+                    }
+                }
+            },
+            series: [{
+                colorByPoint: true,
+                data: data
+            }]
+        })
+    }
