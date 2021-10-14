@@ -1,0 +1,9 @@
+<!-- leaflet fullscreen -->
+<link rel="stylesheet" href="https://egov.phicos.co.id/surakarta/sijali/assets/leaflet/leaflet_fullscreen/leaflet_fullscreen.css">
+<script src="https://egov.phicos.co.id/surakarta/sijali/assets/leaflet/leaflet_fullscreen/leaflet_fullscreen.js"></script>
+
+<!-- sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- loading overlay -->
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
