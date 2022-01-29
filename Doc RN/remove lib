@@ -1,0 +1,12 @@
+// ============================= commands 1
+react-native unlink lib-name
+
+//============================= commands 2
+react-native uninstall lib-name
+
+//============================= commands for load fonts in assets/fonst, add this in end file package.json
+"rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  }

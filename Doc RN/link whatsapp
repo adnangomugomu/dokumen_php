@@ -1,0 +1,2 @@
+// =========================== link ke wa
+<Button title={'whatsapp'} color={'green'} onPress={() => { Linking.openURL('https://api.whatsapp.com/send?phone=082332461946&text=Hello Adnan :)')}} />

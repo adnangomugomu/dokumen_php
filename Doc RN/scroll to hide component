@@ -1,0 +1,45 @@
+========================== function nya
+_hide=()=>{
+	this.setState({
+		isVisible:false
+	})
+}		
+
+_show=()=>{
+	this.setState({
+		isVisible:true
+	})
+}		
+
+_onScroll=(event)=>{
+	var currentOffset = event.nativeEvent.contentOffset.y;
+	var direction = currentOffset > this.state.offset ? 'down' : 'up';
+	currentOffset > this.state.offset ? this._hide() : this._show();
+	this.setState({
+		offset:currentOffset
+	})
+	console.log(direction);
+}
+
+
+========================== props
+<ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}
+	onScroll={this._onScroll}
+>
+....
+</ScrollView>
+
+
+========================== event kondisi
+{
+	this.state.isVisible ? <Tombol/> : null
+}
+
+
+========================== render Tombol
+const Tombol=()=>(
+<TouchableOpacity style={styles.tombol}>
+	<Icon name="magnet" size={18} color="white" />
+	<Text style={styles.tombol_teks}>Toast me</Text>
+</TouchableOpacity>
+)

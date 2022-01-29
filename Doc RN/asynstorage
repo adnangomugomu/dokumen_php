@@ -1,0 +1,28 @@
+// =================================
+_asynID = async () => {
+		var unik_id = await AsyncStorage.getItem('unik_id');
+		// console.log(unik_id);
+		if (!unik_id) {
+			var today = new Date();
+			var timeStamp = today.getTime();
+			var rand = Math.random().toString(36).substring(10);
+			var id = rand + timeStamp;
+			// console.log(id);
+			try {
+				AsyncStorage.setItem('unik_id', id);
+			} catch (e) {
+				console.log(e);
+			}
+		} else {
+			console.log(unik_id);
+		}
+	}
+
+// ================================= asyn set state
+AsyncStorage.getItem("id").then((value) => {
+       this.setState({"id": value});
+   })
+   .then(res => {
+       console.log('cek id bos '+ this.state.id);
+       
+   });

@@ -1,0 +1,3 @@
+sudo ntfsfix /dev/sda6
+
+df -T // to showlist filesystem location

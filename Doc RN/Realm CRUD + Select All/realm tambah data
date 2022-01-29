@@ -1,0 +1,33 @@
+_tambahData=()=>{
+    var today = new Date();
+    var dd = String(today.getDate());
+    var mm = String(today.getMonth());
+    var yy = String(today.getFullYear());
+    var jam = String(today.getHours());
+    var menit = String(today.getMinutes());
+    var timeStamp = today.getTime();
+	var judul = this.state.judul;
+	var keterangan = this.state.keterangan;
+	if ((judul.length != 0) && (keterangan.length != 0)) {
+		try {
+			realm.write(() => {		
+			realm.create('kegiatan1', {
+				id: timeStamp, 
+				judul: this.state.judul, 
+				keterangan: this.state.keterangan, 
+				tgl_upload : dd+'/'+mm+'/'+yy,
+				jam_upload : jam+':'+menit
+			});        
+		});
+		Alert.alert("Data berhasil ditambahkan");
+		console.log('Data berhasil ditambahkan');
+		this._clearInput()		
+		} catch (error) {
+			Alert.alert('Gagal, Terjadi kesalahan !');
+			console.log(error);		
+		}	
+	} else {
+		Alert.alert('data tidak boleh kosong');
+	}
+	    	
+}

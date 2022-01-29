@@ -1,0 +1,26 @@
+// ==================================== componen will mount
+this.setState({
+      keyword: key,
+      isLoading: true
+})
+let formdata = new FormData();
+formdata.append('key', xx);
+formdata.append('submit', 'submit');
+fetch('http://192.168.43.222/rest-lirik/request/selectData', {
+ method: 'POST',
+ body: formdata
+})
+ .then((response) => response.json())
+ .then((responseJson) => {
+     this.setState({
+         data: responseJson,
+         isLoading: false,
+     })
+     console.log(responseJson);
+
+ })
+ .catch((error) => {
+     ToastAndroid.show('gagal ! terjadi kesalahan', ToastAndroid.SHORT);
+     console.log(error);
+ })
+

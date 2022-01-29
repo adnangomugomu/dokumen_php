@@ -1,0 +1,49 @@
+// ============================== ini flatlistnya
+<FlatList			
+	refreshControl={<RefreshControl refreshing={this.state.isRefresh} onRefresh={this._onRefresh} />}
+	showsVerticalScrollIndicator={false}
+	contentContainerStyle={{ flexGrow: 1 }}
+	data={this.state.data}
+	ref={(ref) => { this.flatListRef = ref; }}
+	ListEmptyComponent={ ()=> 
+	<View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+		<Text>Data Kosong</Text> 
+	</View>
+	}
+	renderItem={ ({item,index}) =>
+	// rendernya disini
+		<View style={styles.card}>			
+			<View style={styles.cardHeader}>						
+				<Image source={item.gambar} style={styles.cardImage} />
+			</View>
+			<View style={styles.cardFooter}>
+				<Text style={{color:'#e74c3c',marginHorizontal:8}}>{index+1} {item.judul1}</Text>
+				<Text style={{color:'#8e44ad'}}>{item.judul2}</Text>
+			</View>
+		</View>	
+		
+	}
+	keyExtractor={(item,index) => index.toString()}
+/>
+
+================================ ini untuk method flatlisnya
+_goTop = () => {
+	this.flatListRef.scrollToIndex({animated: true,index:0});
+	// index 0 : to Top
+	// index 1 : to Bottom
+	// index 0.5 : to Middle	   
+}
+
+_onRefresh=()=>{
+	this.setState({
+		isRefresh:true
+	});
+	//this._selectAll();
+	setTimeout(() => {
+		this.setState({
+			isRefresh:false
+		})
+	}, 2000);
+	console.log('refresh sukses');
+	
+}

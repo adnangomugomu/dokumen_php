@@ -1,0 +1,48 @@
+_updateData=()=>{	
+    var today = new Date();
+    var dd = String(today.getDate());
+    var mm = today.getMonth()+1;
+    var yy = String(today.getFullYear());
+    var jam = String(today.getHours());
+    var menit = String(today.getMinutes());
+    var judul = this.state.judul;
+	var keterangan = this.state.keterangan;
+	var pelaksanaan_jam = this.state.pelaksanaan_jam;
+    var pelaksanaan_tgl = this.state.pelaksanaan_tgl;
+    if ((judul.length != 0) && (keterangan.length != 0) && (pelaksanaan_jam.length != 0) && (pelaksanaan_tgl.length != 0) ) 
+        {            
+            Alert.alert(
+                'Database',
+                'Apakah anda yakin menyimpan perubahan data ini ?',
+                [
+                    {text:'OK',onPress:()=>{
+                        try {
+							var id = this.state.data['id'];
+                            realm.write(() => {      																
+								realm.create('catatan', {
+									id: id,
+									judul: this.state.judul,
+									pelaksanaan_tgl: this.state.pelaksanaan_tgl,
+									pelaksanaan_jam: this.state.pelaksanaan_jam,
+									keterangan: this.state.keterangan,
+									tgl_edit: yy+'/'+mm+'/'+dd,
+									jam_edit: jam+':'+menit
+								}, true);
+                            });		
+                            this.props.navigation.navigate('Home');
+                        } catch (error) {
+                            console.log(error);	
+                            ToastAndroid.show('gagal, terjadi kesalaan !',ToastAndroid.LONG);
+
+                        }
+                    }},
+                    {text:'Batal',onPress:()=>{console.log('batal dihapus');
+                    }}
+                ],
+                {cancelable:true}
+            )              
+        }
+    else{
+        ToastAndroid.show('isian tidak boleh kosong !',ToastAndroid.SHORT);
+    }
+}

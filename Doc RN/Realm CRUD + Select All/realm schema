@@ -1,0 +1,27 @@
+======================================= bawah import
+var Realm = require('realm');
+let realm ;
+
+
+======================================= di konstruktor
+realm = new Realm({
+		schema: [{name: 'catatan', 
+		primaryKey:'id',
+		properties: 
+		{
+		  id: {type: 'int',default : 0},
+		  judul: 'string', 
+		  tgl_buat: 'string',
+		  jam_buat: 'string',
+		  tgl_edit: 'string',
+		  jam_edit: 'string',
+		  pelaksanaan_tgl: 'string',
+		  pelaksanaan_jam: 'string',
+		  keterangan: 'string',
+		}}]
+	  });
+
+
+======================================= di screen selain home_Screen
+realm = new Realm()
+=======================================

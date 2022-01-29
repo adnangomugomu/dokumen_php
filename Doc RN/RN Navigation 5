@@ -1,0 +1,13 @@
+// ganti halaman
+this.props.navigation.navigate('Home');
+
+// ganti halaman dg parameter
+this.props.navigation.navigate('Edit', {
+	idData: id
+});
+
+// menangkap parameter
+var idnya = this.props.navigation.state.params.idData;
+
+// memberi event
+this.props.navigation.addListener('focus', () => { this._select() })

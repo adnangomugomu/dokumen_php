@@ -1,0 +1,15 @@
+// import Clipboard terlebih dahulu
+_copy = async () => {
+		var paste = await Clipboard.getString();
+		this.setState({
+			lirik: paste
+		})
+	}
+
+// ===================================================
+_paste = async () => {
+		var paste = await Clipboard.getString();
+		this.setState({
+			lirik: paste
+		})
+	}

@@ -1,0 +1,33 @@
+===================================================== react-native-sound
+const Sound = require('react-native-sound');
+Sound.setCategory('Playback'); //play in silent mode
+import lagu from '../assets/audio/lagu.mp3';	//sesuaikan filenya
+
+
+===================================================== definisikan file nya
+this.Musik = new Sound(lagu, Sound.MAIN_BUNDLE, (error) => {
+	if (error) {
+	console.log('failed to load the sound', error);
+	return;
+	}
+});
+
+
+===================================================== method nya
+this.Musik.play((success) => {
+	if (!success) {
+	  console.log('Sound did not play')
+	}
+  })
+=========================
+this.Musik.pause((success) => {
+	if (!success) {
+	  console.log('Sound did not pause')
+	}
+  })
+=========================
+this.Musik.stop((success) => {
+	if (!success) {
+	  console.log('Sound did not stop')
+	}
+  })

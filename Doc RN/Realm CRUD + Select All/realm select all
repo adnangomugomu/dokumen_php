@@ -1,0 +1,10 @@
+_selectAll=()=>{
+	var a = realm.objects('kegiatan1');
+	var json = JSON.stringify(a);
+	var json1 = JSON.parse(json);
+	var tmp = [];
+	for (var i in json1) {
+		tmp.push(json1[i])
+	}			
+	this.setState({data:tmp[0]})	
+}

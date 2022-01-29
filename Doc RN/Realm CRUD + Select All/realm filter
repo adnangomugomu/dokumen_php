@@ -1,0 +1,18 @@
+UNSAFE_componentWillMount(){
+	let idnya = this.props.navigation.state.params.idData;
+	try {
+		var json = realm.objects('kegiatan1').filtered('id == $0',idnya);
+		var json = JSON.stringify(json);
+		var json1 = JSON.parse(json);
+		var tmp = [];
+		for (var i in json1) {
+			tmp.push(json1[i])
+		}			
+		this.setState({
+			data:tmp[0],
+			id:idnya
+		})
+	} catch (error) {
+		console.log(error);		
+	}
+}

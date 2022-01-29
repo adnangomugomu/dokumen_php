@@ -1,0 +1,38 @@
+// ============================
+_cari = (xx) => {
+        var key = xx.trim();
+        if (key.length != 0) {
+            // console.log(key);
+            this.setState({
+                keyword: key,
+                isLoading: true
+            })
+            let formdata = new FormData();
+            formdata.append('key', key);
+            formdata.append('submit', 'submit');
+            fetch('http://192.168.43.222/rest-lirik/request/selectData', {
+                method: 'POST',
+                body: formdata
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({
+                        data: responseJson,
+                        isLoading: false,
+                    })
+                    // console.log(responseJson);
+                })
+                .catch((error) => {
+                    ToastAndroid.show('gagal ! terjadi kesalahan', ToastAndroid.SHORT);
+                    console.log(error);
+                })
+        } else {
+            console.log(key);
+            
+            this.setState({
+                keyword: key,
+                isLoading: false,
+                data: null
+            })
+        }
+    }

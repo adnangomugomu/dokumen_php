@@ -1,0 +1,16 @@
+===================panggil untuk on Refresh
+_onRefresh=()=>{
+	this.setState({
+		isRefresh:true
+	});
+	Alert.alert("refreshing");
+	setTimeout(() => {
+		this.setState({
+			isRefresh:false
+		})
+	}, 2000);
+	console.log('refresh sukses');	
+}
+
+=======================taruh di scroolview etc.
+refreshControl={<RefreshControl refreshing={this.state.isRefresh} onRefresh={this._onRefresh} />} 

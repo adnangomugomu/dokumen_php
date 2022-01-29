@@ -1,0 +1,24 @@
+==================== buat state dengan nama isVisible
+
+<Modal
+  animationType="slide"
+  transparent={true}
+  onRequestClose={()=>this.setState({isVisible:false})}
+  visible={this.state.isVisible}>
+
+	<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+	  <View style={{height:400,width:400,backgroundColor:'blue'}}>
+	    <View>
+	      <Text>Hello World!</Text>
+
+	      <TouchableOpacity style={styles.tombol}
+		onPress={() => {
+		  this.setState({isVisible:false});
+		}}>
+		<Text>Hide Modal</Text>
+	      </TouchableOpacity>
+	    </View>
+	  </View>
+	</View>
+
+</Modal>

@@ -1,0 +1,9 @@
+// ================================= menambahkan loading
+if (this.state.isLoading == true) {
+      return (
+          <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+              <Text>Mohon tunggu</Text>
+              <Text>Sedang mencari data ...</Text>
+          </View>
+      )
+  }

@@ -1,0 +1,25 @@
+_hapus=()=>{
+	Alert.alert(
+		'Hapus Data',
+		'Apakah anda yakin menghapus data ini ?',
+		[
+			{text:'OK',onPress:()=>{
+				try {
+					var idnya = this.state.id;
+					var json = realm.objects('kegiatan1').filtered('id == $0',idnya);
+					realm.write( ()=>{
+						realm.delete(json)
+					} );
+					console.log('berhasil dihapus');
+					this.props.navigation.navigate('Home');		
+				} catch (error) {
+					console.log(error);	
+					Alert.alert('gagal, terjadi kesalaan !');
+				}
+			}},
+			{text:'Batal',onPress:()=>{console.log('batal dihapus');
+			}}
+		],
+		{cancelable:true}
+	)	
+}

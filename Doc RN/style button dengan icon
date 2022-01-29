@@ -1,0 +1,28 @@
+================================= style button dengan icon
+
+tombol:{
+	backgroundColor:'#00a8ff',
+	flexDirection:'row',		
+	height:40,
+	borderRadius:20,
+	padding:10,
+	alignItems:'center',
+	justifyContent:'center'
+},
+tombol_teks:{
+	fontFamily:'Walkway Black',
+	fontSize:18,
+	color:'white',
+	marginHorizontal:20
+}
+
+================================= props
+
+<TouchableOpacity style={styles.tombol}>
+	<Icon name="magnet" size={18} color="white" />
+	<Text style={styles.tombol_teks}>Toast me</Text>
+</TouchableOpacity>
+
+================================= import react-native vector icons
+import Icon from 'react-native-vector-icons/FontAwesome5';
+

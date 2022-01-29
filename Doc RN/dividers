@@ -1,0 +1,6 @@
+divider:{
+	marginVertical:10,
+	borderColor:'#7f8c8d',
+	borderRadius:2,
+	borderBottomWidth:.5,
+}

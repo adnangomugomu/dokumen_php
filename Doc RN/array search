@@ -1,0 +1,20 @@
+// ========================= search array with flatlist
+_cari(key) {
+        var data = this.state.data;
+        var cari = data.filter(function (xx) {
+            // return (xx.judul).toLowerCase() == (key.toLowerCase()).trim()
+            //     || (xx.artis).toLowerCase() == (key.toLowerCase()).trim()
+            return ((xx.judul).toLowerCase()).indexOf((key.toLowerCase()).trim()) > -1
+                || ((xx.artis).toLowerCase()).indexOf((key.toLowerCase()).trim()) > -1
+        })
+        if (key.trim() == '') {
+            this.setState({
+                hasilCari: null
+            })
+        } else {
+            this.setState({
+                hasilCari: cari
+            })
+        }
+
+    }
