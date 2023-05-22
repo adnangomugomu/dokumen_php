@@ -1,27 +1,28 @@
 // ! jika 1 gambar saja
-$config['upload_path'] = 'assets/xxxxx';
+$path = 'uploads/instrumen_file/' . $id_kambing_file . '/';
+if (!file_exists(FCPATH . $path)) mkdir($path, 0777, TRUE);
+$config['upload_path'] = $path;
 $config['allowed_types'] = 'jpg|png|jpeg';
-$config['max_size'] = 0; // 0 = no limit || default max 2048 kb
+$config['max_size'] = 10000; // 0 = no limit || default max 2048 kb
 $config['overwrite'] = false;
 $config['remove_space'] = true;
 $config['encrypt_name'] = true;
 $this->load->library('upload', $config);
 $this->upload->initialize($config);
-$run = $this->upload->do_upload('xxxxx'); // name inputnya
+$run = $this->upload->do_upload('image'); // name inputnya
 
 if (!$run) {
-   echo json_encode([
-      'status' => 'failed',
-      'msg' => $this->upload->display_errors()
-     ]);
-     die;          
+    echo json_encode([
+        'status' => 'failed',
+        'msg' => $this->upload->display_errors()
+    ]);
+    die;
 }
 
 $zdata = ['upload_data' => $this->upload->data()]; // get data
 $zfile = $zdata['upload_data']['full_path']; // get file path
 chmod($zfile, 0777); // linux wajib
-$gambar = $zdata['upload_data']['file_name']; // nama file
-$this->db->set('xxxxx', $gambar);
+$gambar = $path . $zdata['upload_data']['file_name']; // nama file
 // ! =========================== batas
 
 ===================== cekkkk if untuk update

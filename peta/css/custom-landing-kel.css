@@ -1,0 +1,8 @@
+.card-program .img-program,
+.modal .modal-head .img-modal{
+    background-color: #C74B50;
+}
+
+.card-program:hover .img-program {
+    background-color: #8a191d;
+}

@@ -1,0 +1,53 @@
+################# html
+ <table class="table table-bordered mt-4" style="width: 100%;">
+                        <thead class="bg-primary text-white fw-600">
+                            <tr class="text-center fw-600">
+                                <th style="width: 50px;">NO</th>
+                                <th>INSTRUMEN</th>
+                                <th>ISIAN</th>
+                                <th style="width: 150px;">
+                                    LAMPIRAN
+                                    <br>
+                                    (opsional, bisa lebih dari 1)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($ref_instrumen as $key => $val) :
+                                $i = 1;
+                                $total_child = count($val);
+                                foreach ($val as $dt) :
+                            ?>
+                                    <?php if ($i == 1) : ?>
+                                        <tr>
+                                            <td rowspan="<?= $total_child ?>"><?= $no ?></td>
+                                            <td rowspan="<?= $total_child ?>"><?= $key ?></td>
+                                            <td><?= $dt->data ?></td>
+                                            <td></td>
+                                        </tr>
+                                        <?php else : ?>
+                                            <tr>
+                                                <td><?= $dt->data ?></td>
+                                                <td></td>
+                                            </tr>
+                                    <?php endif; ?>
+                            <?php
+                                    $i++;
+                                endforeach;
+                                $no++;
+                            endforeach; ?>
+                        </tbody>
+                    </table>
+
+
+################# php
+
+   $instrumen = $this->db->get('ref_instrumen')->result();
+
+        foreach ($instrumen as $dt) {
+            $arr[$dt->nm_instrumen][] = $dt;
+        }
+
+        $data['ref_instrumen'] = $arr;

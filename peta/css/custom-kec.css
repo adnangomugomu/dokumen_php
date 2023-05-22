@@ -1,0 +1,39 @@
+.bg-light {
+    background-color: #fffbc0 !important;
+}
+
+/* .card-program .img-program,
+.modal .modal-head .img-modal{
+    background-color: #beb644;
+} */
+
+.card-program .img-program {
+    background-color: #beb644;
+}
+
+.card-program:hover .img-program,
+.breadcrumb-section .header .img-program.yellow {
+    background-color: #9b9328;
+}
+
+.footer {
+    background-color: #534f0f;
+}
+
+.footer.footer-bar {
+    border-color: #3A370B !important;
+    background-color: #3A370B !important;
+}
+
+.footer .foot-subscribe .form-control {
+    border: 1px solid #adb5bd;
+    background-color: #534f0f;
+}
+
+.footer .foot-subscribe .form-control:focus {
+    border-color: #9b9328 !important;
+}
+
+.bg-landing .footer-bar {
+    background-color: transparent !important;
+}

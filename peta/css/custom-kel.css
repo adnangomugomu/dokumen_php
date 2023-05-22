@@ -1,0 +1,45 @@
+.bg-light {
+    background-color: #ffd6d7 !important;
+}
+
+/* .card-program .img-program,
+.modal .modal-head .img-modal{
+    background-color: #C74B50;
+} */
+
+/* .card-program .img-program {
+    background-color: #C74B50;
+} */
+
+/* .card-program:hover .img-program {
+    background-color: #8a191d;
+} */
+
+
+.breadcrumb-section .header .img-program.yellow {
+    /* background-color: #9b9328; */
+    background-color: #8a191d;
+}
+
+.footer {
+    background-color: #a02c30;
+}
+
+.footer.footer-bar {
+    border-color: #701F22 !important;
+    background-color: #701F22 !important;
+}
+
+.footer .foot-subscribe .form-control {
+    border: 1px solid #adb5bd;
+    background-color: #a02c30;
+}
+
+.footer .foot-subscribe .form-control:focus {
+    border-color: #C74B50 !important;
+}
+
+.bg-landing .footer-bar {
+    border: none !important;
+    background-color: transparent !important;
+}
