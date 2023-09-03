@@ -1,0 +1,16 @@
+$("#foto_lokasi").on("change", function() {
+			$('#place_foto').html(null);
+			for (let index = 0; index < this.files.length; index++) {
+				const file = this.files[index];
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						src = e.target.result;
+						html = '<div class="col-lg-4 text-center"><img src="'+src+'" alt="Image Preview" style="max-width: 100%; max-height: 200px; 
+margin: 3px;"></div>';
+						$('#place_foto').append(html);
+					};
+					reader.readAsDataURL(file);
+				}
+			}
+		});

@@ -1,5 +1,5 @@
 // ! jika 1 gambar saja
-$path = 'uploads/instrumen_file/' . $id_kambing_file . '/';
+$path = 'uploads/instrumen_file/';
 if (!file_exists(FCPATH . $path)) mkdir($path, 0777, TRUE);
 $config['upload_path'] = $path;
 $config['allowed_types'] = 'jpg|png|jpeg';
@@ -26,7 +26,7 @@ $gambar = $path . $zdata['upload_data']['file_name']; // nama file
 // ! =========================== batas
 
 ===================== cekkkk if untuk update
-if ($_FILES['thumbnail']['name']) {
+if (!empty($_FILES['thumbnail']['name'])) {
 
 }
 
@@ -61,8 +61,23 @@ for ($i = 0; $i < $jumlah_gambar; $i++) {
     }
 }
 
+// kompres gambar
+$path = 'uploads/small_thumbnail/';
+if (!file_exists(FCPATH . $path)) mkdir($path, 0777, TRUE);
+$name_small = $path . generateRandomString(15) . time() . '.' . pathinfo($zfile)['extension'];
+$this->load->library('image_lib');
+$config['image_library'] = 'gd2';
+$config['quality'] = 60;
+$config['source_image'] = $zfile;
+$config['new_image'] = FCPATH . $name_small;
+$config['create_thumb'] = FALSE;
+$config['maintain_ratio'] = TRUE;
+$config['width'] = 600;
+$this->image_lib->clear();
+$this->image_lib->initialize($config);
+$this->image_lib->resize();
 
-
+$this->db->set('small_thumbnail', $name_small);
 
 
 
